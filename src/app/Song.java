@@ -1,29 +1,34 @@
 package app;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-import javax.sound.midi.*;
+
+import javax.sound.midi.Sequence;
+
 import com.google.gson.Gson;
-import dto.*;
+
+import dto.SongDTO;
 
 public class Song {
     public Sequence seq;
     public HashMap<String, Traq> traqs;
     public int bars;
     public int stepsPerBar;
-    public int step;
+    public int stepSize;
 
     public Song(SongDTO songDTO) throws Exception {
         bars = songDTO.bars;
         stepsPerBar = songDTO.stepsPerBar;
 
         if (stepsPerBar == 4) {
-            step = Constants.QUARTER;
+            stepSize = Constants.QUARTER;
         } else if (stepsPerBar == 8) {
-            step = Constants.EIGHTH;
+            stepSize = Constants.EIGHTH;
         } else if (stepsPerBar == 16) {
-            step = Constants.SIXTEENTH;
+            stepSize = Constants.SIXTEENTH;
         }
 
         // resolution = ticks per quarter note
