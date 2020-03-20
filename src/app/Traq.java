@@ -1,7 +1,6 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.sound.midi.Sequence;
@@ -14,7 +13,7 @@ public class Traq {
     public Track track;
     public Random random;
     public int loopLen;
-    public List<Step> steps;
+    public ArrayList<Step> steps;
 
     public Traq(TraqDTO trackDTO, Sequence seq) {
         track = seq.createTrack();
