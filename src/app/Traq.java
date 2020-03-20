@@ -25,6 +25,10 @@ public class Traq {
         }
     }
 
+    public String toString() {
+        return steps.toString();
+    }
+
     // private void addFill(int note, int velocity, int tick, int duration) {
     //     int x = tick;
     //     for (int y = 0; y < 4; x++, y++) {
