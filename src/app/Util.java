@@ -24,24 +24,18 @@ public class Util {
         // offset: 0    1    2    3
         // loops:  ---- ---- ---- ----
         
-        int k = offset * traq.steps.size();
+        int i = offset * traq.steps.size();
 
         for (Step step : traq.steps) {
-            int tick = k * stepSize;
-            Event event = step.events.get(0);
-            
-            addEvent(event, tick, stepSize, traq.track);
+            int tick = i * stepSize;
+            int duration = stepSize;
 
-            k++;
+            for (Event event : step.events) {
+                addEvent(event, tick, duration, traq.track);
+            }
+
+            i++;
         }
-
-        // for (Event event : traq.events) {
-        //     int tick = k * stepSize;
-            
-        //     addEvent(event, tick, stepSize, traq.track);
-
-        //     k++;
-        // }
     }
 
     private static void addEvent(Event event, int tick, int duration, Track track) {
