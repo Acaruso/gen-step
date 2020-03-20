@@ -1,15 +1,19 @@
 package app;
 
-import javax.sound.midi.*;
-import dto.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Random;
+
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Track;
+
+import dto.StepDTO;
+import dto.TraqDTO;
 
 public class Traq {
     public Track track;
     public Random random;
     public int loopLen;
-    public List<Step> steps;
+    public ArrayList<Step> steps;
 
     public Traq(TraqDTO trackDTO, Sequence seq) {
         track = seq.createTrack();
