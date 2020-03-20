@@ -1,6 +1,8 @@
 package app;
 
-import dto.*;
+import com.google.gson.Gson;
+
+import dto.EventDTO;
 
 public class Event {
     enum EventType { NOTE, REST, FILL }
@@ -24,7 +26,9 @@ public class Event {
         }
     }
 
-    public String toString() { 
-        return "[" + note + " " + velocity + "]"; 
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+        // return "[" + note + " " + velocity + "]"; 
     }
 }

@@ -1,5 +1,7 @@
 package dto;
 
+import com.google.gson.Gson;
+
 public class EventDTO {
     public int note;
     public int vel;
@@ -12,6 +14,7 @@ public class EventDTO {
     }
 
     public String toString() {
-        return "[" + note + " " + vel + " " + prob + "]";
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

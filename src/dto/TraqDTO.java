@@ -3,13 +3,13 @@ package dto;
 import java.util.ArrayList;
 
 public class TraqDTO {
-    public ArrayList<EventDTO> events;
+    public ArrayList<StepDTO> steps;
 
     public TraqDTO() {
-        events = new ArrayList<EventDTO>();
+        steps = new ArrayList<StepDTO>();
     }
 
     public String toString() {
-        return events.toString();
+        return steps.toString();
     }
 }

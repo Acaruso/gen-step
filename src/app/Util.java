@@ -16,22 +16,25 @@ public class Util {
         // TODO: "bars" is not really number of bars, but rather
         // number of times to render full sequence to track
         for (int i = 0; i < song.bars; i++) {
-            writeLoop(traq, song.step, i);
+            writeLoop(traq, song.stepSize, i);
         }
     }
 
-    private static void writeLoop(Traq traq, int step, int offset) {
+    private static void writeLoop(Traq traq, int stepSize, int offset) {
         // offset: 0    1    2    3
         // loops:  ---- ---- ---- ----
         
-        int k = offset * traq.events.size();
+        int i = offset * traq.steps.size();
 
-        for (Event event : traq.events) {
-            int tick = k * step;
-            
-            addEvent(event, tick, step, traq.track);
+        for (Step step : traq.steps) {
+            int tick = i * stepSize;
+            int duration = stepSize;
 
-            k++;
+            for (Event event : step.events) {
+                addEvent(event, tick, duration, traq.track);
+            }
+
+            i++;
         }
     }
 
