@@ -8,6 +8,10 @@ import dto.StepDTO;
 public class Step {
     public ArrayList<Event> events;
 
+    public Step() {
+        events = new ArrayList<Event>();
+    }
+
     public Step(StepDTO stepDTO) {
         events = new ArrayList<Event>();
         

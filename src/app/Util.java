@@ -6,12 +6,12 @@ import java.util.Map;
 import javax.sound.midi.Track;
 
 public class Util {
-    public static Song compileSong(Song song) {
-        Song compiledSong = new Song();
-
-        // TODO: set up compiledSong w/ appropriate stepSize etc
+    public static Song compileSong(Song song) throws Exception {
+        Song compiledSong = Song.getEmptySong(song);
 
         compiledSong.traqs = compileTraqs(song);
+
+        writeTracks(compiledSong);
 
         return compiledSong;
     }

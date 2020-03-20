@@ -15,6 +15,15 @@ public class Traq {
     public int loopLen;
     public ArrayList<Step> steps;
 
+    public Traq(Sequence seq) {
+        track = seq.createTrack();
+        random = new Random();
+        steps = new ArrayList<Step>();
+
+        // TODO: make this settable
+        loopLen = 2;
+    }
+
     public Traq(TraqDTO trackDTO, Sequence seq) {
         track = seq.createTrack();
         random = new Random();
