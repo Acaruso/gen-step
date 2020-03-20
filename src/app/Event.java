@@ -14,6 +14,13 @@ public class Event {
 
     public Event() { }
 
+    public Event(Event e) {
+        type = e.type;
+        note = e.note;
+        velocity = e.velocity;
+        prob = e.prob;
+    }
+
     public Event(EventDTO eventDTO) {
         note = eventDTO.note;
         velocity = eventDTO.vel;

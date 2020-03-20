@@ -56,6 +56,7 @@ public class Song {
 
     public static void write(Song song, String filename) throws Exception {
         Song compiledSong = Util.compileSong(song);
+        System.out.println(compiledSong);
         MidiUtil.writeMidiFile(compiledSong.seq, filename);
 
         // Util.writeTracks(song);

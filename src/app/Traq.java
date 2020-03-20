@@ -10,24 +10,24 @@ import dto.StepDTO;
 import dto.TraqDTO;
 
 public class Traq {
+    public ArrayList<Step> steps;
     public Track track;
     public Random random;
     public int loopLen;
-    public ArrayList<Step> steps;
 
     public Traq(Sequence seq) {
+        steps = new ArrayList<Step>();
         track = seq.createTrack();
         random = new Random();
-        steps = new ArrayList<Step>();
 
         // TODO: make this settable
         loopLen = 2;
     }
 
     public Traq(TraqDTO trackDTO, Sequence seq) {
+        steps = new ArrayList<Step>();
         track = seq.createTrack();
         random = new Random();
-        steps = new ArrayList<Step>();
 
         // TODO: make this settable
         loopLen = 2;

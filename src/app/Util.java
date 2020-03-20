@@ -1,35 +1,66 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 public class Util {
     public static Song compileSong(Song song) throws Exception {
         Song compiledSong = Song.getEmptySong(song);
 
-        compiledSong.traqs = compileTraqs(song);
+        compiledSong.traqs = compileTraqs(song, compiledSong.seq);
+
+        System.out.println("song-----------------");
+        System.out.println(song);
+
+        System.out.println("compiled song-----------------");
+        System.out.println(compiledSong);
+
 
         writeTracks(compiledSong);
 
         return compiledSong;
+
+
+
+        // writeTracks(song);
+        // return song;
     }
 
-    public static HashMap<String, Traq> compileTraqs(Song song) {
+    public static HashMap<String, Traq> compileTraqs(Song song, Sequence seq) {
         HashMap<String, Traq> compiledTraqs = new HashMap<String, Traq>();
 
         for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
             String traqName = entry.getKey();
             Traq traq = entry.getValue();
-            Traq compiledTraq = compileTraq(traq);
+            Traq compiledTraq = compileTraq(traq, seq);
             compiledTraqs.put(traqName, compiledTraq);
         }
 
         return compiledTraqs;
     }
 
-    public static Traq compileTraq(Traq traq) {
+    public static Traq compileTraq(Traq traq, Sequence seq) {
+        Traq newTraq = new Traq(seq);
+
+        ArrayList<Step> newSteps = new ArrayList<Step>();
+        for (Step step : traq.steps) {
+            Step newStep = new Step();
+
+            ArrayList<Event> newEvents = new ArrayList<Event>();
+            for (Event event : step.events) {
+                Event newEvent = new Event(event);  // create copy of event
+                newEvents.add(newEvent);
+            }
+
+            newStep.events = newEvents;
+        }
+
+        newTraq.steps = newSteps;
+
         return traq;
     }
 
@@ -60,6 +91,9 @@ public class Util {
             int duration = stepSize;
 
             for (Event event : step.events) {
+                // System.out.println("adding event");
+                // System.out.println(event);
+                // System.out.println();
                 addEvent(event, tick, duration, traq.track);
             }
 
