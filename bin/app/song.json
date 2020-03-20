@@ -1,0 +1,35 @@
+{
+    "bars": 2,
+    "stepsPerBar": 8,
+    "tracks": {
+        "t1": {
+            "steps": [ 
+                {
+                    "events": [{ "note": 0, "vel": 100 }, { "note": 3, "vel": 100 }]
+                },
+                {
+                    "events": [{  }]
+                },
+                {
+                    "events": [{ "note": 2, "vel": 100 }]
+                },
+                {
+                    "events": [{ "note": 3, "vel": 100 }]
+                },
+
+                {
+                    "events": [{ "note": 0, "vel": 100 }]
+                },
+                {
+                    "events": [{  }]
+                },
+                {
+                    "events": [{ "note": 2, "vel": 100 }]
+                },
+                {
+                    "events": [{ "note": 3, "vel": 100 }]
+                }
+            ]
+        }
+    }
+}
