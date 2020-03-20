@@ -1,10 +1,38 @@
 package app;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.sound.midi.Track;
 
 public class Util {
+    public static Song compileSong(Song song) {
+        Song compiledSong = new Song();
+
+        // TODO: set up compiledSong w/ appropriate stepSize etc
+
+        compiledSong.traqs = compileTraqs(song);
+
+        return compiledSong;
+    }
+
+    public static HashMap<String, Traq> compileTraqs(Song song) {
+        HashMap<String, Traq> compiledTraqs = new HashMap<String, Traq>();
+
+        for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
+            String traqName = entry.getKey();
+            Traq traq = entry.getValue();
+            Traq compiledTraq = compileTraq(traq);
+            compiledTraqs.put(traqName, compiledTraq);
+        }
+
+        return compiledTraqs;
+    }
+
+    public static Traq compileTraq(Traq traq) {
+        return traq;
+    }
+
     public static void writeTracks(Song song) {
         // for each traq in song, render notes to traq.track
         for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {

@@ -19,6 +19,8 @@ public class Song {
     public int stepsPerBar;
     public int stepSize;
 
+    public Song() {}
+
     public Song(SongDTO songDTO) throws Exception {
         bars = songDTO.bars;
         stepsPerBar = songDTO.stepsPerBar;
@@ -49,8 +51,12 @@ public class Song {
     }
 
     public static void write(Song song, String filename) {
-        Util.writeTracks(song);
+        // compress Util.writeTracks into Util.compileSong
+        Song compiledSong = Util.compileSong(song);
         MidiUtil.writeMidiFile(song.seq, filename);
+
+        // Util.writeTracks(song);
+        // MidiUtil.writeMidiFile(song.seq, filename);
     }
 
     private static SongDTO getSongDTO(String filename) throws FileNotFoundException {
