@@ -1,10 +1,78 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
+import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 public class Util {
+    public static Song compileSong(Song song) throws Exception {
+        Song compiledSong = Song.getEmptySong(song);
+
+        compiledSong.traqs = compileTraqs(song, compiledSong.seq);
+
+        writeTracks(compiledSong);
+
+        return compiledSong;
+    }
+
+    public static HashMap<String, Traq> compileTraqs(Song song, Sequence seq) {
+        HashMap<String, Traq> compiledTraqs = new HashMap<String, Traq>();
+
+        for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
+            String traqName = entry.getKey();
+            Traq traq = entry.getValue();
+            //Traq compiledTraq = compileTraq(traq, seq); // bug is here. compiledTrack.track != track inside compileTraq()
+            //compiledTraqs.put(traqName, compiledTraq);
+
+            // begin weird stuff
+            Traq newTraq = new Traq(seq);
+
+            ArrayList<Step> newSteps = new ArrayList<Step>();
+            for (Step step : traq.steps) {
+                Step newStep = new Step();
+    
+                ArrayList<Event> newEvents = new ArrayList<Event>();
+                for (Event event : step.events) {
+                    Event newEvent = new Event(event);  // create copy of event
+                    newEvents.add(newEvent);
+                }
+    
+                newStep.events = newEvents;
+                newSteps.add(newStep);
+            }
+            newTraq.steps = newSteps;
+            compiledTraqs.put(traqName, newTraq);
+            // end weird stuff
+        }
+
+        return compiledTraqs;
+    }
+
+    public static Traq compileTraq(Traq traq, Sequence seq) {
+        Traq newTraq = new Traq(seq);
+
+        ArrayList<Step> newSteps = new ArrayList<Step>();
+        for (Step step : traq.steps) {
+            Step newStep = new Step();
+
+            ArrayList<Event> newEvents = new ArrayList<Event>();
+            for (Event event : step.events) {
+                Event newEvent = new Event(event);  // create copy of event
+                newEvents.add(newEvent);
+            }
+
+            newStep.events = newEvents;
+            newSteps.add(newStep);
+        }
+
+        newTraq.steps = newSteps;
+
+        return traq;
+    }
+
     public static void writeTracks(Song song) {
         // for each traq in song, render notes to traq.track
         for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
@@ -32,6 +100,9 @@ public class Util {
             int duration = stepSize;
 
             for (Event event : step.events) {
+                System.out.println("adding event");
+                System.out.println(event);
+                System.out.println();
                 addEvent(event, tick, duration, traq.track);
             }
 

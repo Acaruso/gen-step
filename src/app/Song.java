@@ -19,6 +19,12 @@ public class Song {
     public int stepsPerBar;
     public int stepSize;
 
+    public Song() throws Exception {
+        // resolution = ticks per quarter note
+        seq = new Sequence(javax.sound.midi.Sequence.PPQ, Constants.RESOLUTION);
+        traqs = new HashMap<String, Traq>();
+    }
+
     public Song(SongDTO songDTO) throws Exception {
         bars = songDTO.bars;
         stepsPerBar = songDTO.stepsPerBar;
@@ -48,9 +54,22 @@ public class Song {
         return song;
     }
 
-    public static void write(Song song, String filename) {
-        Util.writeTracks(song);
-        MidiUtil.writeMidiFile(song.seq, filename);
+    public static void write(Song song, String filename) throws Exception {
+        Song compiledSong = Util.compileSong(song);
+        MidiUtil.writeMidiFile(compiledSong.seq, filename);
+
+        // Util.writeTracks(song);
+        // MidiUtil.writeMidiFile(song.seq, filename);
+    }
+
+    public static Song getEmptySong(Song song) throws Exception {
+        Song emptySong = new Song();
+
+        emptySong.bars = song.bars;
+        emptySong.stepSize = song.stepSize;
+        emptySong.stepsPerBar = song.stepsPerBar;
+
+        return emptySong;
     }
 
     private static SongDTO getSongDTO(String filename) throws FileNotFoundException {
