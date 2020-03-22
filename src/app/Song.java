@@ -56,7 +56,6 @@ public class Song {
 
     public static void write(Song song, String filename) throws Exception {
         Song compiledSong = Util.compileSong(song);
-        System.out.println(compiledSong);
         MidiUtil.writeMidiFile(compiledSong.seq, filename);
 
         // Util.writeTracks(song);
@@ -72,10 +71,10 @@ public class Song {
         emptySong.stepsPerBar = song.stepsPerBar;
         ///////////////////////////////////////////////////////////
 
-        song.traqs.forEach((trackName, traq) -> {
-            Traq newTraq = new Traq(emptySong.seq);
-            emptySong.traqs.put(trackName, newTraq);
-        });
+        // song.traqs.forEach((trackName, traq) -> {
+        //     Traq newTraq = new Traq(emptySong.seq);
+        //     emptySong.traqs.put(trackName, newTraq);
+        // });
 
         return emptySong;
     }
