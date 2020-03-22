@@ -65,16 +65,9 @@ public class Song {
     public static Song getEmptySong(Song song) throws Exception {
         Song emptySong = new Song();
 
-        // change this stuff to be higher rez later ///////////////
         emptySong.bars = song.bars;
         emptySong.stepSize = song.stepSize;
         emptySong.stepsPerBar = song.stepsPerBar;
-        ///////////////////////////////////////////////////////////
-
-        // song.traqs.forEach((trackName, traq) -> {
-        //     Traq newTraq = new Traq(emptySong.seq);
-        //     emptySong.traqs.put(trackName, newTraq);
-        // });
 
         return emptySong;
     }

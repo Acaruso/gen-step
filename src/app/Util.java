@@ -7,50 +7,14 @@ import java.util.Map;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-import app.Event.EventType;
-
 public class Util {
     public static Song compileSong(Song song) throws Exception {
         Song compiledSong = Song.getEmptySong(song);
 
-        // compiledSong.traqs = compileTraqs(song, compiledSong.seq);
-
-
-        // System.out.println("song-----------------");
-        // System.out.println(song);
-
-        // System.out.println("compiled song-----------------");
-        // System.out.println(compiledSong);
-
-        // Event e = new Event();
-        // e.type = EventType.NOTE;
-        // e.note = 1;
-        // e.velocity = 100;
-        // e.prob = 10;
-
-        // Track t = compiledSong.traqs.get("t1").track;
-
-        // System.out.println(t);
-        // addEvent(e, Constants.QUARTER, Constants.QUARTER, t);
-        // return compiledSong;
-
-
-
-        // Event e = new Event();
-        // e.type = EventType.NOTE;
-        // e.note = 1;
-        // e.velocity = 100;
-        // e.prob = 10;
-
-        // Traq t = compiledSong.traqs.get("t1");
-
-        // t.steps.add(new Step());
-        // t.steps.get(0).events.add(e);
-
-
         compiledSong.traqs = compileTraqs(song, compiledSong.seq);
-        // writeTracks(song);
+
         writeTracks(compiledSong);
+
         return compiledSong;
     }
 
@@ -60,8 +24,28 @@ public class Util {
         for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
             String traqName = entry.getKey();
             Traq traq = entry.getValue();
-            Traq compiledTraq = compileTraq(traq, seq); // bug is here. compiledTrack.track != track inside compileTraq()
-            compiledTraqs.put(traqName, compiledTraq);
+            //Traq compiledTraq = compileTraq(traq, seq); // bug is here. compiledTrack.track != track inside compileTraq()
+            //compiledTraqs.put(traqName, compiledTraq);
+
+            // begin weird stuff
+            Traq newTraq = new Traq(seq);
+
+            ArrayList<Step> newSteps = new ArrayList<Step>();
+            for (Step step : traq.steps) {
+                Step newStep = new Step();
+    
+                ArrayList<Event> newEvents = new ArrayList<Event>();
+                for (Event event : step.events) {
+                    Event newEvent = new Event(event);  // create copy of event
+                    newEvents.add(newEvent);
+                }
+    
+                newStep.events = newEvents;
+                newSteps.add(newStep);
+            }
+            newTraq.steps = newSteps;
+            compiledTraqs.put(traqName, newTraq);
+            // end weird stuff
         }
 
         return compiledTraqs;
