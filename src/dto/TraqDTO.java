@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class TraqDTO {
     public ArrayList<StepDTO> steps;
+    String name;
 
     public TraqDTO() {
         steps = new ArrayList<StepDTO>();

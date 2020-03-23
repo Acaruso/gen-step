@@ -8,6 +8,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
 public class Util {
+    /*
     public static Song compileSong(Song song) throws Exception {
         Song compiledSong = Song.getEmptySong(song);
 
@@ -72,11 +73,11 @@ public class Util {
 
         return traq;
     }
+    */
 
     public static void writeTracks(Song song) {
         // for each traq in song, render notes to traq.track
-        for (Map.Entry<String, Traq> entry : song.traqs.entrySet()) {
-            Traq traq = entry.getValue();
+        for (Traq traq : song.traqs) {
             writeTrack(traq, song);
         }
     }

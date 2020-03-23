@@ -1,8 +1,9 @@
 {
     "bars": 2,
     "stepsPerBar": 8,
-    "tracks": {
-        "t1": {
+    "tracks": [
+        {
+            "name": "t1",
             "steps": [ 
                 {
                     "events": [{ "note": 0, "vel": 100 }, { "note": 3, "vel": 100 }]
@@ -31,5 +32,5 @@
                 }
             ]
         }
-    }
+    ]
 }

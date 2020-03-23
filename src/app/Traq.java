@@ -11,6 +11,7 @@ import dto.TraqDTO;
 
 public class Traq {
     public ArrayList<Step> steps;
+    String name;
     public Track track;
     public Random random;
     public int loopLen;
