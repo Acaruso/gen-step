@@ -1,24 +1,25 @@
 package dto;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class SongDTO {
-    public HashMap<String, TraqDTO> tracks;
+    public ArrayList<TraqDTO> tracks;
     public int bars;
     public int stepsPerBar;
 
     public SongDTO() {
-        tracks = new HashMap<String, TraqDTO>();
+        tracks = new ArrayList<TraqDTO>();
     }
 
     public String toString() {
         String s = "";
-        for (Map.Entry<String, TraqDTO> entry : tracks.entrySet()) {
-            s += entry.getKey() + "\n";
-            s += entry.getValue().toString() + "\n";
+
+        for (TraqDTO traqDTO : tracks) {
+            s += traqDTO.name + "\n";
+            s += traqDTO.toString() + "\n";
             s += "\n";
         }
+
         return s;
     }
 }

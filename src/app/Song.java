@@ -3,18 +3,18 @@ package app;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
 import javax.sound.midi.Sequence;
 
 import com.google.gson.Gson;
 
 import dto.SongDTO;
+import dto.TraqDTO;
 
 public class Song {
     public Sequence seq;
-    public HashMap<String, Traq> traqs;
+    public ArrayList<Traq> traqs;
     public int bars;
     public int stepsPerBar;
     public int stepSize;
@@ -22,7 +22,7 @@ public class Song {
     public Song() throws Exception {
         // resolution = ticks per quarter note
         seq = new Sequence(javax.sound.midi.Sequence.PPQ, Constants.RESOLUTION);
-        traqs = new HashMap<String, Traq>();
+        traqs = new ArrayList<Traq>();
     }
 
     public Song(SongDTO songDTO) throws Exception {
@@ -39,13 +39,13 @@ public class Song {
 
         // resolution = ticks per quarter note
         seq = new Sequence(javax.sound.midi.Sequence.PPQ, Constants.RESOLUTION);
-        traqs = new HashMap<String, Traq>();
+        traqs = new ArrayList<Traq>();
 
         // for each track in trackDTO, create traq, add to song.traqs
-        songDTO.tracks.forEach((trackName, trackDTO) -> {
-            Traq traq = new Traq(trackDTO, seq);
-            traqs.put(trackName, traq);
-        });
+        for (TraqDTO traqDTO : songDTO.tracks) {
+            Traq traq = new Traq(traqDTO, seq);
+            traqs.add(traq);
+        }
     }
 
     public static Song read(String filename) throws Exception {
@@ -55,11 +55,11 @@ public class Song {
     }
 
     public static void write(Song song, String filename) throws Exception {
-        Song compiledSong = Util.compileSong(song);
-        MidiUtil.writeMidiFile(compiledSong.seq, filename);
+        // Song compiledSong = Util.compileSong(song);
+        // MidiUtil.writeMidiFile(compiledSong.seq, filename);
 
-        // Util.writeTracks(song);
-        // MidiUtil.writeMidiFile(song.seq, filename);
+        Util.writeTracks(song);
+        MidiUtil.writeMidiFile(song.seq, filename);
     }
 
     public static Song getEmptySong(Song song) throws Exception {
@@ -82,11 +82,13 @@ public class Song {
     public String toString() {
         String s = "";
         s += "bars: " + bars + "\n";
-        for (Map.Entry<String, Traq> entry : traqs.entrySet()) {
-            s += entry.getKey() + "\n";
-            s += entry.getValue().toString() + "\n";
+
+        for (Traq traq : traqs) {
+            s += traq.name + "\n";
+            s += traq.toString() + "\n";
             s += "\n";
         }
+
         return s;
     }
 }
