@@ -1,35 +1,36 @@
 {
-    "bars": 2,
+    "bars": 12,
     "stepsPerBar": 8,
-    "tracks": {
-        "t1": {
+    "tracks": [
+        {
+            "name": "t1",
             "steps": [ 
                 {
-                    "events": [{ "note": 0, "vel": 100 }, { "note": 3, "vel": 100 }]
+                    "events": [{ "note": 43, "vel": 100 }]
                 },
                 {
-                    "events": [{  }]
+                    "events": [{ "note": 43, "vel": 100, "prob": 4 }, { "note": 46, "vel": 100, "prob": 4 }]
                 },
                 {
-                    "events": [{ "note": 2, "vel": 100 }]
+                    "events": [{ "note": 48, "vel": 100, "prob": 5 }]
                 },
                 {
-                    "events": [{ "note": 3, "vel": 100 }]
+                    "events": [{ "note": 48, "vel": 100, "prob": 5 }, { "note": 50, "vel": 100, "prob": 2 }]
                 },
 
                 {
-                    "events": [{ "note": 0, "vel": 100 }]
+                    "events": [{ "note": 41, "vel": 100, "prob": 5 }, { "note": 48, "vel": 100, "prob": 5 }]
                 },
                 {
                     "events": [{  }]
                 },
                 {
-                    "events": [{ "note": 2, "vel": 100 }]
+                    "events": [{ "note": 44, "vel": 100, "prob": 8}]
                 },
                 {
-                    "events": [{ "note": 3, "vel": 100 }]
+                    "events": [{ "note": 46, "vel": 100, "prob": 8 }, { "note": 44, "vel": 100, "prob": 3 }]
                 }
             ]
         }
-    }
+    ]
 }
