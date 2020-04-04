@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Random;
+
 import javax.sound.midi.Track;
 
 public class Util {
@@ -29,16 +31,21 @@ public class Util {
             int duration = stepSize;
 
             for (Event event : step.events) {
-                addEvent(event, tick, duration, traq.track);
+                handleEvent(event, tick, duration, traq.track);
             }
 
             i++;
         }
     }
 
-    private static void addEvent(Event event, int tick, int duration, Track track) {
+    private static void handleEvent(Event event, int tick, int duration, Track track) {
+        Random random = new Random();
+
         if (event.type == Event.EventType.NOTE) {
-            addNote(event, tick, duration, track);
+            int res = random.nextInt(10);   // get int between 0 - 9
+            if (res < event.prob) {
+                addNote(event, tick, duration, track);
+            }
         } else if (event.type == Event.EventType.REST) {
             // do nothing
         }
